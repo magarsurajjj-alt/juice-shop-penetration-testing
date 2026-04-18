@@ -1,6 +1,7 @@
 # Web Application Penetration Testing Report
 
 ## Target: OWASP Juice Shop
+<img width="1366" height="768" alt="Screenshot_2026-04-18_13_18_04" src="https://github.com/user-attachments/assets/32fc0d83-0000-4b9e-b4bb-c6ad5b1764b8" />
 
 ---
 
