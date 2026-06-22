@@ -1,0 +1,42 @@
+# Improper Input Validation in Customer Feedback Rating
+
+## Vulnerability Type
+Improper Input Validation / Broken Business Logic
+
+## OWASP Category
+A03: Injection (Input Validation Issue)  
+A04: Insecure Design (Business Logic Flaw)
+
+---
+
+## Description
+The Customer Feedback feature allows users to submit a rating between 1 and 5. However, this restriction is only enforced on the client-side.
+
+By intercepting the request using a proxy tool (e.g., Burp Suite), it is possible to modify the rating value and submit invalid input (e.g., 0 or values outside the allowed range).
+
+This indicates a lack of server-side validation for critical input parameters.
+
+---
+
+## Steps to Reproduce
+
+1. Navigate to the Customer Feedback form.
+2. Select a valid rating (e.g., 3).
+3. Intercept the request using Burp Suite.
+4. Modify the request parameter:
+
+
+rating=0
+
+
+5. Forward the request.
+6. Observe that the invalid rating is accepted by the server.
+
+---
+
+## Proof of Concept
+
+The application accepts manipulated input values that violate business rules (rating range 1–5), indicating missing server-side validation.
+
+---
+
