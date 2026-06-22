@@ -1,0 +1,25 @@
+# DOM-Based XSS in Search Functionality
+
+## Vulnerability Type
+DOM-Based Cross-Site Scripting (XSS)
+
+## OWASP Category
+A03: Injection
+
+## Description
+A DOM-based XSS vulnerability was identified in the search functionality of OWASP Juice Shop. The application improperly handles user-supplied input in the search field and reflects it into the DOM without proper sanitization or encoding.
+
+This allows execution of arbitrary JavaScript in the victim’s browser.
+
+---
+
+## Steps to Reproduce
+
+1. Open the application search bar.
+2. Enter the following payload:
+
+```
+<iframe src="javascript:alert(`xss`)"></iframe>
+```
+3. Submit the search query.
+4. Observe that an alert box is triggered.
