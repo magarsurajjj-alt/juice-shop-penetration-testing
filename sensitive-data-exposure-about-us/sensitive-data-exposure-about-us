@@ -1,0 +1,77 @@
+# Sensitive Data Exposure in About Us Section
+
+## Vulnerability Type
+Sensitive Data Exposure / Information Disclosure
+
+## OWASP Category
+A01: Broken Access Control  
+A05: Security Misconfiguration (depending on interpretation)
+
+---
+
+## Description
+A sensitive data exposure issue was identified in the About Us section of the application. When intercepting requests using a proxy tool (Burp Suite), the server response contains references to internal file storage (FTP) and exposes confidential documents that should not be publicly accessible.
+
+These documents are returned in the HTTP response without proper access control or authorization checks.
+
+---
+
+## Steps to Reproduce
+
+1. Navigate to the "About Us" page of the application.
+2. Intercept the request using Burp Suite.
+3. Inspect the server response.
+4. Observe references to internal FTP storage and confidential document links.
+5. Access or download the exposed files directly.
+
+---
+
+## Proof of Concept
+
+The HTTP response includes sensitive references such as:
+- FTP server paths
+- Internal document URLs
+- Confidential files accessible without authentication
+
+Example behavior:
+
+
+ftp://internal-server/documents/confidential.pdf
+
+
+---
+
+## Impact
+
+- Exposure of internal infrastructure details (FTP endpoints)
+- Unauthorized access to confidential documents
+- Potential leakage of sensitive business or system information
+- Attackers can enumerate internal resources for further exploitation
+
+---
+
+## Root Cause
+
+- Backend API returning sensitive internal data to frontend
+- Lack of access control on document endpoints
+- Improper separation between public and internal resources
+- Overexposed configuration or metadata in responses
+
+---
+
+## Recommendation
+
+- Remove internal system references (FTP, internal URLs) from API responses
+- Implement strict access control for document storage
+- Ensure sensitive files are not publicly accessible
+- Store confidential documents in secured storage with authentication
+- Apply principle of least privilege to API responses
+- Use environment separation (dev/test/prod)
+
+---
+
+## Security Best Practice
+
+Sensitive infrastructure details (such as FTP, internal file paths, or admin endpoints) should never be exposed to client-side applications or unauthenticated users.
+
+All API responses should be reviewed to ensure no metadata leakage.
