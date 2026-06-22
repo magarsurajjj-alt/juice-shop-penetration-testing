@@ -54,7 +54,9 @@ The goal is to simulate real-world web attacks, identify vulnerabilities, exploi
 
 ## 📸 Sample Screenshot
 
-(Add screenshots here)
+<img width="1366" height="768" alt="Screenshot_2026-06-22_18_26_12" src="https://github.com/user-attachments/assets/cd722658-ef82-4674-921f-d6af93f1343a" />
+<img width="1366" height="768" alt="Screenshot_2026-06-22_18_16_20" src="https://github.com/user-attachments/assets/9cbe4036-62a2-4aec-840f-c00d549c08d8" />
+
 
 ---
 
