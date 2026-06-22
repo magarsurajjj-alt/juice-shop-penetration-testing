@@ -26,7 +26,6 @@ The goal is to simulate real-world web attacks, identify vulnerabilities, exploi
 
 * Burp Suite
 * Browser DevTools
-* curl / Postman
 * Manual Testing
 
 ---
