@@ -1,0 +1,48 @@
+# SQL Injection in Login Functionality
+
+## Vulnerability Type
+SQL Injection (Authentication Bypass)
+
+## OWASP Category
+A03: Injection
+
+---
+
+## Description
+A SQL Injection vulnerability was identified in the login functionality. The application appears to concatenate user input directly into a SQL query without proper sanitization or parameterized queries.
+
+This allows an attacker to manipulate the query logic and bypass authentication.
+
+---
+
+## Steps to Reproduce
+
+1. Navigate to the login page.
+2. Enter the following payload in the email/username field:
+
+
+' OR 1=1--
+
+
+3. Enter any password.
+4. Submit the login form.
+
+---
+
+## Expected Result
+Authentication should fail due to invalid credentials.
+
+## Actual Result
+Authentication is bypassed and access is granted (or abnormal behavior occurs depending on backend logic).
+
+---
+
+## Proof of Concept
+
+The payload modifies the SQL query logic to always evaluate as TRUE:
+
+```sql
+SELECT * FROM users 
+WHERE email = '' OR 1=1--' AND password = 'anything';
+
+Because 1=1 is always true, the query returns valid user records.
