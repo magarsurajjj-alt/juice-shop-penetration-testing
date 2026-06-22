@@ -1,0 +1,82 @@
+# Broken Access Control via Exposed Administration Route
+
+## Vulnerability Type
+Broken Access Control / Information Disclosure
+
+## OWASP Category
+A01: Broken Access Control
+
+---
+
+## Description
+A sensitive administrative route (`/administration`) was discovered in the client-side JavaScript file (`main.js`). The application exposes internal application routes in frontend code, allowing an attacker to identify hidden administrative functionality.
+
+The admin interface can be accessed directly by navigating to the exposed route without proper authorization enforcement.
+
+---
+
+## Steps to Reproduce
+
+### 1. Discover hidden route
+- Inspect `main.js` or bundled frontend JavaScript files
+- Identify reference to:
+
+
+/administration
+
+
+---
+
+### 2. Access admin panel directly
+- Open browser and navigate to:
+
+
+http://localhost:3000/administration
+
+
+---
+
+### 3. Observe result
+- The admin panel loads without proper access control restrictions (or insufficient authorization checks depending on configuration)
+
+---
+
+## Proof of Concept
+
+The application leaks internal routes in frontend JavaScript, which allows attackers to discover restricted functionality.
+
+Direct access to `/administration` demonstrates insufficient server-side access control enforcement.
+
+---
+
+## Impact
+
+- Unauthorized access to administrative interface
+- Exposure of sensitive system functionality
+- Potential for full application compromise depending on admin capabilities
+- Attack surface expansion through client-side information disclosure
+
+---
+
+## Root Cause
+
+- Sensitive routes exposed in frontend JavaScript (`main.js`)
+- Lack of proper server-side authorization checks
+- Trusting client-side route hiding instead of enforcing backend access control
+
+---
+
+## Recommendation
+
+- Do not expose sensitive routes in frontend JavaScript
+- Implement strict server-side authorization checks for `/administration`
+- Ensure all admin endpoints validate user roles before rendering data
+- Use role-based access control (RBAC)
+- Treat frontend route hiding as non-security control (UX only)
+
+---
+
+## Security Best Practice
+
+Security should never rely on obscurity (e.g., hiding routes in JavaScript).  
+All sensitive endpoints must enforce authorization at the server level.
