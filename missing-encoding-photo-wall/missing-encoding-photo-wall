@@ -1,0 +1,73 @@
+# Improper Output Encoding in Photo Wall Feature
+
+## Vulnerability Type
+Improper Output Encoding / Information Disclosure
+
+## OWASP Category
+A03: Injection (Encoding Issues)  
+A05: Security Misconfiguration
+
+---
+
+## Description
+A vulnerability was identified in the Photo Wall feature where image data is rendered without proper encoding or validation.
+
+When inspecting the application using Burp Suite, the server response reveals direct image references and unencoded content that can be manipulated or misinterpreted by the browser.
+
+This indicates improper handling of user-generated or backend-supplied content.
+
+---
+
+## Steps to Reproduce
+
+1. Navigate to the Photo Wall page.
+2. Intercept the request using Burp Suite.
+3. Observe the HTTP response containing image URLs and metadata.
+4. Note that image paths are directly rendered without proper encoding or validation.
+5. Access or modify image references.
+
+---
+
+## Evidence
+
+The response contains direct references such as:
+
+
+/assets/public/images/uploads/...
+
+
+These are exposed without proper validation or encoding controls.
+
+---
+
+## Impact
+
+- Exposure of internal image storage structure
+- Possibility of accessing restricted or unintended files
+- Information disclosure about application assets
+- Potential for further enumeration of file paths
+
+---
+
+## Root Cause
+
+- Lack of proper output encoding for dynamic content
+- Direct rendering of backend image paths
+- No validation of asset access permissions
+- Missing access control for uploaded resources
+
+---
+
+## Recommendation
+
+- Implement proper output encoding for all dynamic content
+- Restrict direct access to uploaded files
+- Use access-controlled file serving mechanisms
+- Validate and sanitize all file paths before rendering
+- Store uploads outside public web root where possible
+
+---
+
+## Security Best Practice
+
+All user or backend-generated content must be properly encoded before rendering in the browser 
